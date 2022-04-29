@@ -1,44 +1,16 @@
 public class Main {
-
     public static void main(String[] args) {
-        final IEventQueueImpl eventQueue = new IEventQueueImpl();
-
-        int n = 100000;
-        for (int i = 0; i < n; i++) {
-            eventQueue.enqueue(Math.random(), new Object());
+        int[] initialSizes = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000};
+        int repetitions = 2000;
+        long[] times = new long[initialSizes.length];
+        for (int j = 0; j < 5; j++) {
+            for (int i = 0; i < initialSizes.length; i++) {
+                Experiment experiment = new Experiment();
+                times[i] = experiment.main(repetitions, initialSizes[i]);
+            }
         }
-
-        eventQueue.printQueue();
-
-        test(eventQueue);
-    }
-
-    public static void test(IEventQueueImpl eventQueue) {
-        final int m = 100000;
-
-        long totalEnqueueTime = 0;
-        for (int i = 0 ; i < m ; i++) {
-            final Double time = Math.random();
-            final Object object = new Object();
-
-            long startTime = System.nanoTime();
-
-            eventQueue.enqueue(time, object);
-
-            long endTime = System.nanoTime();
-            totalEnqueueTime += endTime - startTime;
+        for (int i = 0; i < initialSizes.length; i++) {
+            System.out.println(initialSizes[i] + "; " + times[i] + ";");
         }
-        System.out.println(totalEnqueueTime / m);
-
-        long totalDequeueTime = 0;
-        for (int i = 0 ; i < m ; i++) {
-            long startTime = System.nanoTime();
-
-            eventQueue.dequeue();
-
-            long endTime = System.nanoTime();
-            totalDequeueTime += endTime - startTime;
-        }
-        System.out.println(totalDequeueTime / m);
     }
 }
