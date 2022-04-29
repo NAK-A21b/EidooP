@@ -1,8 +1,10 @@
-## ACHTUNG! Die Reihenfolge der Multiple-Choice Aufgabe ist zufällig! ##
+## ACHTUNG! Die Reihenfolge der Multiple-Choice Aufgabe ist zufällig!
 
-# Frage 1 #
+# Test 1
 
-### Der Java Compiler ... ###
+# Frage 1
+
+### Der Java Compiler ...
 
 - [ ] ist nur zum Auffinden von Fehlern erforderlich. Ein JIT-Compiler (Just-in-time-Compiler) kann den Sourcecode direkt ohne den Zwischenschritt über den Bytecode interpretieren.
 
@@ -14,9 +16,9 @@
 
 - [x] <b>überprüft die Syntax von Java Programmen und zeigt Fehler an.</b>
 
-# Frage 2 #
+# Frage 2
 
-### Eine Klasse legt fest ... ###
+### Eine Klasse legt fest ...
 
 - [ ] die Exemplare der Klasse
 
@@ -28,9 +30,9 @@
 
 - [x] <b>die Exemplarvariablen</b>
 
-# Frage 3 #
+# Frage 3
 
-### Was charakterisiert ein Objekt eindeutig? ###
+### Was charakterisiert ein Objekt eindeutig?
 
 - [ ] Ein Objekt hat Schlüsselattribute.
 
@@ -42,9 +44,9 @@
 
 - [x] <b>ein Objekt hat einen Zustand.</b>
 
-# Frage 4 #
+# Frage 4
 
-### Das Verhältnis von Klasse zu Objekt ist wie ###
+### Das Verhältnis von Klasse zu Objekt ist wie
 
 - [ ] Vater und Sohn
 
@@ -56,7 +58,7 @@
 
 - [ ] Eis und Wasser
 
-# Frage 5 #
+# Frage 5
 
 Antwort: <b> Statische Variablen </b>
 
