@@ -1,31 +1,36 @@
-public class Experiment {
-    private final IEventQueueImpl my_eventq = new IEventQueueImpl();
+import eventqueue.IEventQueue;
 
-    public void initialize(Integer initialSize) {
+import java.util.Random;
+
+public class Experiment<E, Q extends IEventQueue<E>> {
+    private Q queue;
+
+    public Experiment(Q queue) {
+        this.queue = queue;
+    }
+
+    public void initialize(int initialSize) {
+        this.queue = (Q) this.queue.cleanCopy();
+        Random random = new Random();
         for (int i = 0; i < initialSize; i++) {
-            my_eventq.enqueue((double) i, "Eventname-" + i);
+            this.queue.enqueue(random.nextDouble(), null);
         }
     }
 
-    public long evaluate(Integer repetitions) {
-        long startTime = System.nanoTime();
+    public long evaluate(int repetitions) {
+        Random random = new Random();
+        long timeStart = System.nanoTime();
         for (int i = 0; i < repetitions; i++) {
-            my_eventq.enqueue((double) i, "Eventname-" + i);
-            IEventQueue.Entry<Object> dequeue_event = my_eventq.dequeue();
+            this.queue.enqueue(random.nextDouble(), null);
+            this.queue.dequeue();
         }
-        long stopTime = System.nanoTime();
-        long elapsedTime = stopTime - startTime;
-        //long elapsedMillis = TimeUnit.NANOSECONDS.toMillis(elapsedTime);
-        //long elapsedSeconds = TimeUnit.NANOSECONDS.toSeconds(elapsedTime);
-        //System.out.println("Experiment evaluated");
-        //System.out.println("\t repetitions: " + repetitions);
-        //System.out.println("\telapsed time: " + elapsedMillis + " Milliseconds");
-        //System.out.println("\telapsed time: ~" + elapsedSeconds + " Seconds");
+        long elapsedTime = System.nanoTime() - timeStart;
         return elapsedTime / repetitions;
     }
 
-    public long main(int repetitions, int initialSize) {
-        initialize(initialSize);
-        return evaluate(repetitions);
+    public Experiment getCopy() {
+        return new Experiment<E, Q>((Q) this.queue.cleanCopy());
     }
+
+
 }
