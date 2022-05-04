@@ -1,16 +1,46 @@
+import eventqueue.ArrayListEventQueue;
+import eventqueue.SortedArrayQueue;
+import eventqueue.UnsortedArrayQueue;
+
+import java.lang.reflect.InvocationTargetException;
+
 public class Main {
-    public static void main(String[] args) {
-        int[] initialSizes = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000};
-        int repetitions = 2000;
-        long[] times = new long[initialSizes.length];
-        for (int j = 0; j < 5; j++) {
-            for (int i = 0; i < initialSizes.length; i++) {
-                Experiment experiment = new Experiment();
-                times[i] = experiment.main(repetitions, initialSizes[i]);
+
+    public static void main(String[] args){
+        int repetitions = 10;
+        int depth = 1000;
+        Long[][] resultTable = new Long[repetitions][3];
+
+        Experiment[] queues = new Experiment[]{
+                new Experiment(new ArrayListEventQueue<>()),
+                new Experiment(new UnsortedArrayQueue<>()),
+                new Experiment(new SortedArrayQueue<>())
+        };
+        int counter = 0;
+        for (Experiment experiment: queues) {
+            for (int j = 0; j < repetitions; j++) {
+                experiment.initialize(j * 1000);
+                resultTable[j][counter] = experiment.evaluate(depth);
+                System.out.print("[" + (counter + 1) + "|" + queues.length + "]\t");
+                System.out.print((j / (double) repetitions) * 100 + "%\r");
             }
+            System.out.print("[" + (counter + 1) + "|" + queues.length + "]\t 100%\n");
+            counter++;
         }
-        for (int i = 0; i < initialSizes.length; i++) {
-            System.out.println(initialSizes[i] + "; " + times[i] + ";");
+
+        /* format resultTable as CSV */
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < resultTable.length; i++) {
+            for (int j = 0; j < resultTable[i].length; j++) {
+                sb.append(resultTable[i][j]);
+                sb.append(";");
+            }
+            sb.append("\n");
         }
+        System.out.println("ArrayListEventQueue;UnsortedArrayQueue;SortedArrayQueue;");
+        System.out.println(sb.toString());
+
+
     }
+
 }
