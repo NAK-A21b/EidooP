@@ -53,7 +53,7 @@ Komplett:
 public class Student {
 
     private String name;
-    private final String id;
+    private String id;
     private int credits;
 
     public Student(String fullName, String studentID) {
