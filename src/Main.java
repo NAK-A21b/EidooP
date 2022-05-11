@@ -1,21 +1,19 @@
-import eventqueue.ArrayListEventQueue;
-import eventqueue.SortedArrayQueue;
-import eventqueue.UnsortedArrayQueue;
-
-import java.lang.reflect.InvocationTargetException;
+import eventqueue.*;
 
 public class Main {
 
     public static void main(String[] args){
-        int repetitions = 10;
-        int depth = 1000;
-        Long[][] resultTable = new Long[repetitions][3];
+        int repetitions = 25;
+        int depth = 500;
 
         Experiment[] queues = new Experiment[]{
                 new Experiment(new ArrayListEventQueue<>()),
+                new Experiment(new SortedArrayQueue<>()),
                 new Experiment(new UnsortedArrayQueue<>()),
-                new Experiment(new SortedArrayQueue<>())
+                new Experiment(new StackArrayQueue<>()),
+                new Experiment(new StackArrayListQueue()),
         };
+        Long[][] resultTable = new Long[repetitions][queues.length];
         int counter = 0;
         for (Experiment experiment: queues) {
             for (int j = 0; j < repetitions; j++) {
@@ -37,7 +35,7 @@ public class Main {
             }
             sb.append("\n");
         }
-        System.out.println("ArrayListEventQueue;UnsortedArrayQueue;SortedArrayQueue;");
+        System.out.println("ArrayListEventQueue;SortedArrayQueue;UnsortedArrayQueue;StackArrayQueue;StackArrayListQueue;");
         System.out.println(sb.toString());
 
 
