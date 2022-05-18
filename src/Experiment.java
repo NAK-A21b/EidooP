@@ -28,6 +28,10 @@ public class Experiment<E, Q extends IEventQueue<E>> {
         return elapsedTime / repetitions;
     }
 
+    public String getQueueName() {
+        return this.queue.getClass().getSimpleName();
+    }
+
     public Experiment getCopy() {
         return new Experiment<E, Q>((Q) this.queue.cleanCopy());
     }
