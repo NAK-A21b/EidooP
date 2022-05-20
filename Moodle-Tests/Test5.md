@@ -9,7 +9,7 @@ Eine Arraylist soll als Exemplarvariable angelegt werden. Welche der Deklaration
 |-------------------------------------------------------|---------------------------------|
 |private ArrayList list = new ArrayList();              | ```Korrekt aber Problematisch```|
 |private ArrayList list;                                | ```Korrekt aber Problematisch```|
-|private ArrayList<> list = new ArrayList<String>();	  | ``` Nicht korrekt ```           |
+|private ArrayList<> list = new ArrayList<String>();	| ``` Nicht korrekt ```           |
 |private ArrayList<String> list = new ArrayList<String>;| ``` Nicht korrekt ```           |
 |private ArrayList list = new ArrayList<String>;        |``` Nicht korrekt ```            |
 |private ArrayList<String> list= new ArrayList<>();     | ``` Korrekt ```                 |
@@ -146,27 +146,10 @@ Setzen Sie für den ShoppingBasket folgende Anforderungen durch:
  3. Soll ein Produkt mehrfach bestellt werden, wird das Produkt mehrfach in den ShoppingBasket gelegt.
  4. Der ShoppingBasket kann einen Gesamtpreis aller Produkte im ShoppingBasket berechnen.
     Der Inhalt des ShoppingBasket kann in der Reihenfolge des Hinzufügens aufgelistet werden. Jede Position im ShoppingBasket erhält eine Positionsnummer. Die Breiten der Spalten sind fix (bitte abzählen!) und lange Produktnamen werden bei der Ausgabe abgeschnitten.
-    Beispiel:
-    +-----------------------------------+-------+
-    |Pos|Produkt                        |Preis  |
-    +---+-------------------------------+-------+
-    |  1|Unentwickeltes Pikachu         |  0,90€|
-    |  2|Vier LoL Champions im Paket Kat| 49,09€|
-    |  3|Unentwickeltes Pikachu         |  0,90€|
-    +---+-------------------------------+-------+
-    |                             Summe:  50,89 |
-    +---+-------------------------------+-------+
  5. Durch Angabe der Positionsnummer kann ein Element aus dem ShoppingBasket gelöscht werden. Wird eine nicht existierende Positionsnummer angegeben, wird die Meldung "There is no item at the position number given!" ausgegeben.
  6. Alle zu einem Produkt gehörenden Positionen können gelöscht werden.
  7. Der ShoppingBasket kann sortiert werden. Tipp: Es gibt eine Utility Klasse Collections.
  8. Man kann einen Lieferschein ausdrucken. Der Lieferschein ist sortiert.
-    Beispiel:
-    +-------------------------------+-------+
-    |Produkt                        |Anzahl |
-    +-------------------------------+-------+
-    |Unentwickeltes Pikachu         |      2|
-    |Vier Champions im Paket Katarin|      1|
-    +---------------------------------------+
   
 ```java
   public class ShoppingBasket {
