@@ -12,7 +12,7 @@ ___
 
 Lückentext:
 
-![Lückentext](./Test3-1-Aufg1.jpg)
+![Lückentext](./test3-1-Aufg1.jpg)
 
 ## Frage 2 ##
 
@@ -268,8 +268,8 @@ Gegeben ist ein Array ``ìnt[] numbers`` ...
 public class Main() {
     // Beginn der Lösung
     public void printNumbers(int[] numbers) {
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.println(numbers[i]);
+        for (int number : numbers) {
+            System.out.println(number);
         }
     }
     // Ende der Lösung
@@ -285,9 +285,9 @@ public class Main() {
     // Beginn der Lösung
     public static int totalLength(String[] words) {
         int total = 0;
-        for (int i = 0; i < words.length; i++) {
-            if (words[i] != null) {
-                total += words[i].length();
+        for (String word : words) {
+            if (word != null) {
+                total += word.length();
             }
         }
         return total;

@@ -1,16 +1,16 @@
-# Einführung in die Objektorientierte Programmierung
+# Einführung in die objektorientierte Programmierung
 
 ## Q2-2022
 
 ___
 
-## Disclamer:
+## Disclaimer:
 
 Dieses Projekt ist im Rahmen des Moduls "I166 - Einführung in die objektorientierte Programmierung" des Studiengangs
 "Angewandte Informatik" an der Nordakademie Elmshorn erstellt worden.
 
 Es dient lediglich dem Ziel, ein Beispiel zu zeigen, wie objektorientierte Programmierung in einem Projekt funktioniert.
-Des Weiteren erhebt es keien Anspruch auf die Richtigkeit der Inhalte oder Funktionalität.
+Des Weiteren erhebt es keinen Anspruch auf die Richtigkeit der Inhalte oder Funktionalität.
 
 ___
 

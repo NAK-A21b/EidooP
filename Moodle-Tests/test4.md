@@ -13,7 +13,7 @@ Sichtbarkeit und Methodenaufru
 ## Frage 2 ##
 Klassen und Objektdiagramm
 
-![Klassen und Objektdiagramm](./Test4-Aufg2.jpg)
+![Klassen und Objektdiagramm](./test4-Aufg2.jpg)
 
 ## Frage 3 ##
 Lückentext
@@ -35,24 +35,27 @@ In dieser Aufgabe..
 
 ```java
 public class ClockDisplay {
-    private NumberDisplay hours;
-    private NumberDisplay minutes;
+    private final NumberDisplay hours;
+    private final NumberDisplay minutes;
     private String displayString;
 
-    public ClockDisplay(){
+    public ClockDisplay() {
         hours = new NumberDisplay(24, null);
         minutes = new NumberDisplay(60, hours);
         updateDisplay();
     }
-    public ClockDisplay(int hour, int minute){
+
+    public ClockDisplay(int hour, int minute) {
         hours = new NumberDisplay(24, null);
         minutes = new NumberDisplay(60, hours);
         setTime(hour, minute);
     }
-    public void timeTick(){
+
+    public void timeTick() {
         minutes.increment();
         updateDisplay();
     }
+
     public void setTime(int hour, int minute) {
         hours.setValue(hour);
         minutes.setValue(minute);
@@ -68,35 +71,36 @@ public class ClockDisplay {
                 minutes.getDisplayValue();
     }
 }
-public class NumberDisplay
-{
-    private int limit;
+
+public class NumberDisplay {
+    private final int limit;
     private int value;
-    private NumberDisplay parent;
+    private final NumberDisplay parent;
+
     public NumberDisplay(int rollOverLimit, NumberDisplay parent) {
         limit = rollOverLimit;
         value = 0;
         this.parent = parent;
     }
+
     public NumberDisplay(int rollOverLimit) {
         this(rollOverLimit, null);
     }
 
-    public int getValue()    {
+    public int getValue() {
         return value;
     }
 
-    public String getDisplayValue()    {
-        if(value < 10) {
+    public String getDisplayValue() {
+        if (value < 10) {
             return "0" + value;
-        }
-        else {
+        } else {
             return "" + value;
         }
     }
 
-    public void setValue(int replacementValue)    {
-        if((replacementValue >= 0) && (replacementValue < limit)) {
+    public void setValue(int replacementValue) {
+        if ((replacementValue >= 0) && (replacementValue < limit)) {
             value = replacementValue;
         }
     }
