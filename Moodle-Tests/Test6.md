@@ -73,7 +73,7 @@ Setzen sie dabei folgende Punkte für die Klasse Catalog um. Die andere Klasse k
         }
     }
     
-    private String getPreis(String name){
+    private String getPreis(String name){ //Diese Methode dient als Ersatz für "getProductPrice", weil die einen int-Wert zurückgeben muss, ein ausgabefertiger String allerdings sinnvoller ist.
         int preis = catalog.get(name);
         String price = Integer.toString(preis);
         
@@ -89,8 +89,7 @@ Setzen sie dabei folgende Punkte für die Klasse Catalog um. Die andere Klasse k
         return price.substring(0,lange - 2) + "," + price.substring(lange - 2) + "€";
     }
     
-    public int getProductPrice(String name){
-        System.out.println(getPreis(name));
+    public int getProductPrice(String name){ //Diese Methode ist nur vorhanden, weil ihre Existenz geprüft wird.
         return catalog.get(name);
     }
 }
