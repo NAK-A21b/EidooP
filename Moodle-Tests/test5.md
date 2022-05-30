@@ -7,18 +7,18 @@ problematisch und welche inkorrekt?
 
 ### Deklaration einer ArrayList ###
 
-| Deklaration                                             | Bewertung                            |
-|---------------------------------------------------------|--------------------------------------|
-| private ArrayList<> list = new ArrayList<String>();     | ```🔴Nicht korrekt🔴```              |
-| private ArrayList<String> list = new ArrayList<String>; | ```🔴Nicht korrekt🔴```              |
-| private ArrayList list = new ArrayList<String>;         | ```🔴Nicht korrekt🔴```              |
-| private ArrayList<int> list = new ArrayList<>();        | ```🔴Nicht korrekt🔴```              |
-| private ArrayList list = new ArrayList();               | ```🟠Korrekt aber Problematisch🟠``` |
-| private ArrayList list;                                 | ```🟠Korrekt aber Problematisch🟠``` |
-| private ArrayList<String> list = new ArrayList();       | ```🟠Korrekt aber Problematisch🟠``` |
-| private ArrayList list = new ArrayList<String>();       | ```🟠Korrekt aber Problematisch🟠``` |
-| private ArrayList<String> list= new ArrayList<>();      | ```🟢Korrekt🟢```                    |
-| private ArrayList<String> list;                         | ```🟢Korrekt🟢```                    |
+| Deklaration                                             | Bewertung                    |
+|---------------------------------------------------------|------------------------------|
+| private ArrayList list = new ArrayList();               | 🟠Korrekt aber Problematisch |
+| private ArrayList list;                                 | 🟠Korrekt aber Problematisch |
+| private ArrayList<> list = new ArrayList<String>();     | 🔴Nicht korrekt              |
+| private ArrayList<String> list = new ArrayList<String>; | 🔴Nicht korrekt              |
+| private ArrayList list = new ArrayList<String>;         | 🔴Nicht korrekt              |
+| private ArrayList<String> list= new ArrayList<>();      | 🟢Korrekt                    |
+| private ArrayList<int> list = new ArrayList<>();        | 🔴Nicht korrekt              |
+| private ArrayList<String> list = new ArrayList();       | 🟠Korrekt aber Problematisch |
+| private ArrayList list = new ArrayList<String>();       | 🟠Korrekt aber Problematisch |
+| private ArrayList<String> list;                         | 🟢Korrekt                    |
 
 ## Frage 2 ##
 
@@ -148,7 +148,7 @@ public class Main() {
             }
         }
     }
-    // ende der Lösung
+    // Ende der Lösung
 }
 ```
 
@@ -178,112 +178,80 @@ Setzen Sie für den ShoppingBasket folgende Anforderungen durch:
 8. Man kann einen Lieferschein ausdrucken. Der Lieferschein ist sortiert.
 
 ```java
-  public class ShoppingBasket {
-    private ArrayList<String> basket;
-    private ArrayList<String> basketAusgabe;
-    private final Catalog katalog;
-    String leerstellen;
-    int zahler = 0;
 
-    public ShoppingBasket(Catalog katalog) {
-        this.katalog = katalog;
+public class ShoppingBasket {
+    private final ArrayList<String> items;
+    private final Catalog catalog;
+
+    public ShoppingBasket(Catalog catalog) {
+        this.catalog = catalog;
+        items = new ArrayList<>();
     }
 
+    public void addItem(String item) {
+        items.add(item);
+    }
 
-    public void addItem(String name) {
-        if (katalog.hasProduct(name)) {
-            basket.add(name);
+    public Integer calculateBasketPrice() {
+        Integer price = 0;
+        for (String item : items) {
+            price += catalog.getProductPrice(item);
         }
-    }
-
-    public int priceSum() {
-        int summe = 0;
-        for (String string : basket) {
-            summe += katalog.getProductPrice(string);
-        }
-        return summe;
-    }
-
-    public String loopSchreiben(int anzahl, String symbol) {
-        return String.valueOf(symbol).repeat(Math.max(0, anzahl));
+        return price;
     }
 
     public void print() {
-        int index = 1;
-        System.out.println("+" + loopSchreiben(35, "-") + "+-------+");
-        System.out.println("|Pos|Produkt                        |Preis  |");
-        System.out.println("+---+" + loopSchreiben(31, "-") + "+-------+");
-
-        for (String eintragBeleg : basket) {
-            StringBuilder formatiert = new StringBuilder(katalog.getProductPrice(eintragBeleg) / 100 + "€");
-
-            while (formatiert.length() < 7)
-                formatiert.insert(0, " ");
-
-            StringBuilder name = new StringBuilder(eintragBeleg);
-            while (name.length() < 31)
-                name.append(" ");
-
-            System.out.println("|  " + index + "|" + name.substring(0, 31) + "|" + formatiert + "|");
+        StringBuilder sb = new StringBuilder();
+        String recordSeparator = "+-----------------------------------+-------+";
+        String headerColumn = "|Pos|Produkt                        |Preis  |";
+        sb.append(recordSeparator).append("\n");
+        sb.append(headerColumn).append("\n");
+        for (String item : items) {
+            sb.append(String.format("|%-3s|%-35s|%-7s|\n", items.indexOf(item) + 1, item, catalog.getProductPrice(item)));
         }
-        double summe = priceSum();
-        StringBuilder summeAusgabe = new StringBuilder(Double.toString(summe));
-        while (summeAusgabe.length() > 7)
-            summeAusgabe.insert(0, " ");
-        System.out.println("+---+" + loopSchreiben(31, "-") + "+-------+");
-        System.out.println("|" + loopSchreiben(29, " ") + "Summe: " + summeAusgabe + " |");
-        System.out.println("+" + loopSchreiben(35, "-") + "+-------+");
+        sb.append(recordSeparator).append("\n");
+        sb.append(String.format("|%39s %-7s|\n", "Gesamt", calculateBasketPrice()));
+        sb.append(recordSeparator).append("\n");
+        System.out.println(sb);
     }
 
-    public void deleteItem(int nummer) {
-        if (nummer >= basket.size()) {
-            System.out.println("There is no item at the position number given!");
+    public void deleteItem(int item) {
+        if (item > 0 && item <= items.size()) {
+            items.remove(item - 1);
         } else {
-            basket.remove(nummer);
+            System.out.println("There is no item at the position number given!");
         }
     }
 
-    public void deleteItems(String name) {
-        int i = 0;
-        while (i < basket.size()) {
-            if (basket.get(i).contains(name)) {
-                basket.remove(i);
-            } else {
-                i++;
-            }
-        }
+    public void deleteItems(String item) {
+        items.removeIf(i -> i.equals(item));
     }
 
     public void sortByName() {
-        Collections.sort(basket);
+        items.sort(String::compareTo);
     }
 
     public void printPackList() {
-        for (String eintrag : basket) {
-            if (!basketAusgabe.contains(eintrag)) {
-                basket.add(eintrag);
+        StringBuilder sb = new StringBuilder();
+        String recordSeparator = "+-------------------------------+-------+";
+        String headerColumn = "|Produkt                        |Anzahl |";
+        TreeMap<String, Integer> packList = new TreeMap<>();
+        for (String item : items) {
+            if (packList.containsKey(item)) {
+                packList.put(item, packList.get(item) + 1);
+            } else {
+                packList.put(item, 1);
             }
         }
-        System.out.println("+" + loopSchreiben(31, "-") + "+-------+");
-        System.out.println("|Produkt" + loopSchreiben(24, " ") + "|Anzahl |");
-        System.out.println("+" + loopSchreiben(31, "-") + "+-------+");
-        for (String eintragAusgabe : basketAusgabe) {
-            zahler = 0;
-            for (String eintrag2 : basket) {
-                if (eintrag2.equals(eintragAusgabe)) {
-                    zahler += 1;
-                }
-            }
-
-            System.out.print("|  " + eintragAusgabe.substring(0, 31) + "|");
-            StringBuilder zahlerAusgabe = new StringBuilder(Integer.toString(zahler));
-
-            while (zahlerAusgabe.length() <= 7)
-                zahlerAusgabe.insert(0, " ");
-
-            System.out.println(zahlerAusgabe + "|");
+        sb.append(recordSeparator).append("\n");
+        sb.append(headerColumn).append("\n");
+        sb.append(recordSeparator).append("\n");
+        for (String item : packList.keySet()) {
+            sb.append(String.format("|%-31s|%-7s|\n", item, packList.get(item)));
         }
-        System.out.println("+" + loopSchreiben(39, "-") + "+");
+        sb.append(recordSeparator).append("\n");
+        System.out.println(sb);
     }
+
 }
 ```
